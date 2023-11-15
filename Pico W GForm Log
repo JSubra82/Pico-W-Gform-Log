@@ -1,0 +1,45 @@
+from time import sleep
+import urequests
+
+x = 15
+
+def connect():
+    import network
+ 
+    ssid = "Honor 10" 
+    password = "ubq43210" 
+ 
+    station = network.WLAN(network.STA_IF)
+ 
+    if station.isconnected() == True:
+        print("Already connected")
+        return
+ 
+    station.active(True)
+    station.connect(ssid, password)
+ 
+    while station.isconnected() == False:
+        pass
+ 
+    print("Connection successful")
+    print(station.ifconfig())
+    
+connect()
+
+while True:
+    sleep(5)
+    
+    h = {'content-type' : 'application/x-www-form-urlencoded'}
+    form_url = 'https://docs.google.com/forms/d/e/1FAIpQLSf69NrDhu24xhdw28xNPb_lUH6sKvyCxWVLZg6QvGB-ysEFNg/formResponse?usp=pp_url&'
+    form_data = 'entry.176825468=' + str(x)
+    r = urequests.post(form_url, data=form_data, headers=h)
+    r.status_code
+    r.close()
+    print("check google form")
+    
+  
+#https://docs.google.com/forms/d/e/1FAIpQLSf69NrDhu24xhdw28xNPb_lUH6sKvyCxWVLZg6QvGB-ysEFNg/viewform?usp=pp_url&entry.176825468={}&submit=Submit
+    
+# https://docs.google.com/forms/d/e/1FAIpQLSf69NrDhu24xhdw28xNPb_lUH6sKvyCxWVLZg6QvGB-ysEFNg/viewform?usp=pp_url&entry.176825468=12
+
+
